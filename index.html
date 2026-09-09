@@ -4,684 +4,743 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>StatVers — медицинская статистика</title>
+<title>STATVERS — медицинская статистика</title>
+
+<meta name="description" content="STATVERS — медицинская статистика, статистические методы, калькуляторы и инструменты для научных исследований.">
 
 <style>
-
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
+:root{
+    --bg:#f5faff;
+    --bg-soft:#edf7ff;
+    --white:#ffffff;
+    --blue:#2389d7;
+    --blue-dark:#116aa9;
+    --blue-light:#dff1ff;
+    --blue-line:#c9e7f8;
+    --text:#263746;
+    --muted:#718392;
+    --border:#dcecf5;
+    --shadow:0 12px 35px rgba(36,112,161,.10);
 }
 
-html {
-    min-height: 100%;
-    background: #f7f7f5;
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
-body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    background: #f7f7f5;
-    color: #303638;
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    padding:0;
+    background:
+        radial-gradient(circle at 50% -10%, #e3f4ff 0, transparent 35%),
+        var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    min-height:100vh;
 }
 
 button,
-a {
-    font-family: inherit;
+a{
+    font-family:inherit;
 }
 
-.app {
-    width: 100%;
-    max-width: 520px;
-    min-height: 100vh;
-    margin: 0 auto;
-    padding:
-        max(24px, env(safe-area-inset-top))
-        18px
-        max(30px, env(safe-area-inset-bottom));
+button{
+    border:0;
 }
 
+.app{
+    width:100%;
+    max-width:520px;
+    min-height:100vh;
+    margin:0 auto;
+    padding:22px 18px 30px;
+}
 
 /* =========================
    BRAND
 ========================= */
 
-.brand {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 28px;
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:24px;
 }
 
-.logo-wrap {
-    display: flex;
-    align-items: center;
-    gap: 11px;
+.brand-mark{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    background:linear-gradient(145deg,#2b9be6,#1472b8);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 8px 20px rgba(35,137,215,.22);
+    flex-shrink:0;
 }
 
-.logo-mark {
-    width: 42px;
-    height: 42px;
-    border-radius: 13px;
-    background: linear-gradient(
-        145deg,
-        #dfeceb,
-        #eef0e9
-    );
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
+.brand-mark svg{
+    width:25px;
+    height:25px;
 }
 
-.logo-mark svg {
-    width: 27px;
-    height: 27px;
+.brand-name{
+    font-size:21px;
+    font-weight:800;
+    letter-spacing:.12em;
+    color:#183b54;
+    line-height:1;
 }
 
-.logo {
-    font-size: 25px;
-    font-weight: 750;
-    letter-spacing: -0.8px;
-    color: #303638;
+.brand-sub{
+    margin-top:5px;
+    font-size:10px;
+    color:#7790a0;
+    letter-spacing:.13em;
+    font-weight:600;
 }
 
-.logo span {
-    color: #688688;
-    font-weight: 500;
+/* =========================
+   SCREENS
+========================= */
+
+.screen{
+    display:none;
+    animation:fadeIn .28s ease;
 }
 
-.brand-label {
-    font-size: 10px;
-    letter-spacing: 1.3px;
-    text-transform: uppercase;
-    color: #8c9696;
+.screen.active{
+    display:block;
 }
 
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(7px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
 
 /* =========================
    HERO
 ========================= */
 
-.hero {
-    position: relative;
-    overflow: hidden;
-    background: #ffffff;
-    border: 1px solid #e5e6e1;
-    border-radius: 25px;
-    padding: 27px 23px 25px;
-    margin-bottom: 16px;
-    box-shadow:
-        0 10px 35px rgba(50, 60, 60, 0.055);
+.hero{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(145deg,#ffffff 0%,#edf8ff 100%);
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:29px 23px 25px;
+    box-shadow:var(--shadow);
+    margin-bottom:22px;
 }
 
-.hero::after {
-    content: "";
-    position: absolute;
-    width: 170px;
-    height: 170px;
-    right: -80px;
-    top: -75px;
-    border-radius: 50%;
-    background: #edf3f0;
+.hero::before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    right:-80px;
+    top:-80px;
+    background:#d8f0ff;
+    border-radius:50%;
+    opacity:.75;
 }
 
-.hero-label {
-    position: relative;
-    z-index: 2;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 7px 11px;
-    border-radius: 50px;
-    background: #f0f4f1;
-    color: #668183;
-    font-size: 11px;
-    font-weight: 650;
-    margin-bottom: 17px;
+.hero-label{
+    position:relative;
+    font-size:11px;
+    color:var(--blue);
+    font-weight:700;
+    letter-spacing:.13em;
+    text-transform:uppercase;
+    margin-bottom:13px;
 }
 
-.hero-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #6d9090;
+.hero h1{
+    position:relative;
+    margin:0;
+    font-size:34px;
+    line-height:1.08;
+    letter-spacing:-.04em;
+    color:#193b52;
 }
 
-.hero-title {
-    position: relative;
-    z-index: 2;
-    margin: 0 0 12px;
-    font-size: clamp(31px, 8vw, 43px);
-    line-height: 1.08;
-    letter-spacing: -1.7px;
-    font-weight: 750;
+.hero h1 span{
+    color:var(--blue);
 }
 
-.hero-title span {
-    color: #678889;
+.hero p{
+    position:relative;
+    margin:15px 0 0;
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.6;
+    max-width:390px;
 }
 
-.hero-text {
-    position: relative;
-    z-index: 2;
-    margin: 0;
-    max-width: 430px;
-    color: #737b7c;
-    font-size: 14px;
-    line-height: 1.55;
+/* DATA GRAPH */
+
+.data-graph{
+    position:relative;
+    height:65px;
+    margin-top:20px;
+    overflow:hidden;
 }
 
+.data-graph svg{
+    width:100%;
+    height:100%;
+}
+
+.graph-line{
+    fill:none;
+    stroke:#2389d7;
+    stroke-width:2.5;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.graph-soft{
+    fill:none;
+    stroke:#b9def2;
+    stroke-width:1;
+    stroke-dasharray:4 5;
+}
 
 /* =========================
-   DATA LINE
+   SECTION TITLE
 ========================= */
 
-.data-graphic {
-    position: absolute;
-    right: 12px;
-    bottom: 8px;
-    width: 165px;
-    height: 100px;
-    opacity: .34;
+.section-title{
+    font-size:12px;
+    color:#71899a;
+    font-weight:700;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    margin:0 0 11px 4px;
 }
-
-.data-graphic svg {
-    width: 100%;
-    height: 100%;
-}
-
 
 /* =========================
-   SECTION
+   TOOL CARDS
 ========================= */
 
-.section-label {
-    margin: 25px 4px 12px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    color: #929a9a;
+.tools{
+    display:flex;
+    flex-direction:column;
+    gap:11px;
 }
 
-
-/* =========================
-   CARDS
-========================= */
-
-.card {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-    min-height: 91px;
-    padding: 16px;
-    margin-bottom: 10px;
-
-    background: #ffffff;
-    border: 1px solid #e5e6e1;
-    border-radius: 18px;
-
-    cursor: pointer;
-    user-select: none;
-
-    box-shadow:
-        0 4px 16px rgba(50,60,60,.035);
-
+.tool-card{
+    width:100%;
+    min-height:88px;
+    padding:17px 17px;
+    border-radius:21px;
+    border:1px solid var(--border);
+    background:var(--white);
+    box-shadow:0 7px 22px rgba(34,110,155,.065);
+    display:flex;
+    align-items:center;
+    text-align:left;
+    cursor:pointer;
     transition:
         transform .18s ease,
         box-shadow .18s ease,
         border-color .18s ease;
 }
 
-.card:hover {
-    border-color: #d5dcd9;
-    box-shadow:
-        0 8px 24px rgba(50,60,60,.065);
+.tool-card:active{
+    transform:scale(.985);
 }
 
-.card:active {
-    transform: scale(.985);
+.tool-card:hover{
+    transform:translateY(-2px);
+    border-color:#b8def3;
+    box-shadow:0 12px 28px rgba(34,110,155,.11);
 }
 
-.card-icon {
-    flex: 0 0 48px;
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #f0f4f1;
-    color: #638183;
+.tool-icon{
+    width:52px;
+    height:52px;
+    border-radius:17px;
+    background:var(--blue-light);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    margin-right:15px;
 }
 
-.card-icon svg {
-    width: 23px;
-    height: 23px;
+.tool-icon svg{
+    width:26px;
+    height:26px;
+    stroke:#1682cc;
 }
 
-.card-content {
-    min-width: 0;
-    padding-right: 20px;
+.tool-content{
+    flex:1;
+    min-width:0;
 }
 
-.card-title {
-    font-size: 16px;
-    line-height: 1.25;
-    font-weight: 650;
-    margin-bottom: 5px;
+.tool-title{
+    font-size:15px;
+    line-height:1.25;
+    font-weight:750;
+    color:#243f52;
+    margin-bottom:5px;
 }
 
-.card-text {
-    font-size: 12.5px;
-    line-height: 1.42;
-    color: #818889;
+.tool-description{
+    color:#8193a0;
+    font-size:12px;
+    line-height:1.45;
 }
 
-.card-arrow {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #9aa4a4;
-    font-size: 19px;
+.tool-arrow{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:#f0f8fd;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-left:10px;
+    flex-shrink:0;
 }
 
+.tool-arrow svg{
+    width:15px;
+    height:15px;
+    stroke:#3789ba;
+}
 
 /* =========================
-   ORDER
+   ORDER CTA
 ========================= */
 
-.order {
-    position: relative;
-    overflow: hidden;
-    margin-top: 21px;
-    padding: 23px 20px;
-    border-radius: 21px;
-    background: #303c3e;
-    color: #ffffff;
-    box-shadow:
-        0 12px 30px rgba(48,60,62,.16);
+.order-card{
+    margin-top:20px;
+    border-radius:22px;
+    padding:20px;
+    background:linear-gradient(135deg,#1479bd,#249be4);
+    color:white;
+    box-shadow:0 14px 30px rgba(24,124,184,.20);
+    cursor:pointer;
+    transition:transform .18s ease;
 }
 
-.order::before {
-    content: "";
-    position: absolute;
-    width: 130px;
-    height: 130px;
-    right: -55px;
-    top: -55px;
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius: 50%;
+.order-card:active{
+    transform:scale(.985);
 }
 
-.order-title {
-    position: relative;
-    z-index: 2;
-    font-size: 18px;
-    font-weight: 650;
-    margin-bottom: 7px;
+.order-top{
+    display:flex;
+    align-items:center;
+    gap:13px;
 }
 
-.order-text {
-    position: relative;
-    z-index: 2;
-    margin: 0 0 17px;
-    max-width: 390px;
-    color: #d5dddd;
-    font-size: 13px;
-    line-height: 1.5;
+.order-icon{
+    width:42px;
+    height:42px;
+    border-radius:14px;
+    background:rgba(255,255,255,.16);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
 }
 
-.button {
-    position: relative;
-    z-index: 2;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 44px;
-    padding: 0 17px;
-    border-radius: 11px;
-    background: #ffffff;
-    color: #303c3e;
-    font-size: 13px;
-    font-weight: 650;
-    cursor: pointer;
+.order-icon svg{
+    width:22px;
+    height:22px;
+    stroke:white;
 }
 
-.button:active {
-    transform: scale(.97);
+.order-title{
+    font-size:16px;
+    font-weight:750;
 }
 
-
-/* =========================
-   SCREENS
-========================= */
-
-.screen {
-    display: none;
-    animation: fadeIn .22s ease;
+.order-description{
+    margin-top:10px;
+    font-size:12px;
+    line-height:1.5;
+    opacity:.87;
 }
 
-.screen.active {
-    display: block;
+.order-arrow{
+    margin-left:auto;
+    font-size:22px;
+    opacity:.8;
 }
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(5px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* =========================
-   BACK
-========================= */
-
-.back {
-    display: inline-flex;
-    align-items: center;
-    min-height: 42px;
-    margin-bottom: 17px;
-    padding: 0 4px;
-
-    color: #737c7d;
-    font-size: 13px;
-    font-weight: 550;
-
-    cursor: pointer;
-}
-
-.back:active {
-    opacity: .6;
-}
-
-
-/* =========================
-   METHOD FINDER
-========================= */
-
-.progress {
-    display: inline-block;
-    margin-bottom: 10px;
-    padding: 6px 9px;
-    border-radius: 7px;
-    background: #eef2ef;
-    color: #758283;
-    font-size: 11px;
-    font-weight: 600;
-}
-
-.question {
-    font-size: clamp(24px, 7vw, 30px);
-    line-height: 1.2;
-    letter-spacing: -1px;
-    font-weight: 700;
-    margin-bottom: 21px;
-}
-
-.option {
-    position: relative;
-    width: 100%;
-    min-height: 57px;
-    display: flex;
-    align-items: center;
-
-    padding: 15px 45px 15px 17px;
-    margin-bottom: 10px;
-
-    background: #ffffff;
-    border: 1px solid #e3e5e1;
-    border-radius: 15px;
-
-    color: #363d3f;
-    font-size: 15px;
-    line-height: 1.35;
-
-    cursor: pointer;
-    transition: .18s ease;
-}
-
-.option::after {
-    content: "›";
-    position: absolute;
-    right: 17px;
-    color: #a0a8a8;
-    font-size: 20px;
-}
-
-.option:hover {
-    border-color: #cbd5d2;
-    background: #fbfcfb;
-}
-
-.option:active {
-    transform: scale(.985);
-    background: #f2f5f3;
-}
-
-
-/* =========================
-   RESULT
-========================= */
-
-.result {
-    background: #ffffff;
-    border: 1px solid #e3e5e1;
-    border-radius: 21px;
-    padding: 22px 20px;
-    box-shadow:
-        0 8px 25px rgba(50,60,60,.045);
-}
-
-.result-label {
-    display: inline-block;
-    padding: 6px 9px;
-    margin-bottom: 13px;
-    border-radius: 7px;
-    background: #eef3f0;
-    color: #728182;
-    font-size: 10px;
-    font-weight: 650;
-    letter-spacing: .3px;
-}
-
-.result-title {
-    font-size: 25px;
-    line-height: 1.18;
-    letter-spacing: -1px;
-    font-weight: 720;
-    margin-bottom: 13px;
-}
-
-.result-text {
-    font-size: 14px;
-    line-height: 1.58;
-    color: #6f7879;
-}
-
-.result-note {
-    margin-top: 17px;
-    padding: 14px;
-    border-radius: 13px;
-    background: #f6f7f4;
-    color: #777f80;
-    font-size: 11.5px;
-    line-height: 1.5;
-}
-
-.small-button {
-    width: 100%;
-    min-height: 49px;
-    margin-top: 17px;
-    padding: 0 15px;
-
-    border: none;
-    border-radius: 12px;
-
-    background: #303c3e;
-    color: #ffffff;
-
-    font-size: 14px;
-    font-weight: 650;
-
-    cursor: pointer;
-}
-
-.small-button:active {
-    transform: scale(.985);
-}
-
 
 /* =========================
    FOOTER
 ========================= */
 
-.footer {
-    text-align: center;
-    margin-top: 27px;
-    padding-top: 19px;
-    border-top: 1px solid #e2e3df;
+.footer{
+    text-align:center;
+    padding:29px 0 8px;
 }
 
-.footer a {
-    color: #4e6668;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 650;
+.footer-logo{
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:.14em;
+    color:#37627b;
 }
 
-.footer-text {
-    margin-top: 6px;
-    font-size: 10.5px;
-    color: #9a9f9f;
+.footer-text{
+    margin-top:7px;
+    font-size:11px;
+    color:#91a2ad;
 }
 
+.footer-link{
+    display:inline-block;
+    margin-top:8px;
+    color:#1682cc;
+    font-size:12px;
+    font-weight:700;
+    text-decoration:none;
+}
+
+.footer-link:hover{
+    text-decoration:underline;
+}
 
 /* =========================
-   VERY SMALL PHONES
+   INNER SCREENS
 ========================= */
 
-@media (max-width: 350px) {
-
-    .app {
-        padding-left: 14px;
-        padding-right: 14px;
-    }
-
-    .hero {
-        padding: 23px 19px;
-    }
-
-    .hero-title {
-        font-size: 29px;
-    }
-
-    .card {
-        padding: 14px;
-    }
-
-    .card-icon {
-        flex-basis: 43px;
-        width: 43px;
-        height: 43px;
-    }
-
-    .card-title {
-        font-size: 15px;
-    }
-
-    .card-text {
-        font-size: 11.5px;
-    }
-
+.inner-header{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    margin-bottom:20px;
 }
 
+.back-button{
+    width:40px;
+    height:40px;
+    border-radius:13px;
+    background:white;
+    border:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(35,112,157,.06);
+}
+
+.back-button svg{
+    width:19px;
+    height:19px;
+    stroke:#3c789d;
+}
+
+.inner-title{
+    font-size:20px;
+    font-weight:800;
+    color:#1d3e54;
+}
+
+.inner-subtitle{
+    margin:0 0 17px;
+    color:#7b8d99;
+    font-size:13px;
+    line-height:1.5;
+}
 
 /* =========================
-   DESKTOP
+   METHOD FINDER
 ========================= */
 
-@media (min-width: 700px) {
+.progress{
+    display:flex;
+    gap:6px;
+    margin-bottom:18px;
+}
 
-    .app {
-        padding-top: 45px;
+.progress span{
+    height:4px;
+    flex:1;
+    border-radius:10px;
+    background:#dcecf5;
+}
+
+.progress span.active{
+    background:#2389d7;
+}
+
+.question-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:23px;
+    padding:22px 18px;
+    box-shadow:var(--shadow);
+}
+
+.question-number{
+    color:#2589cf;
+    font-size:11px;
+    font-weight:750;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    margin-bottom:8px;
+}
+
+.question-title{
+    font-size:20px;
+    line-height:1.25;
+    font-weight:780;
+    color:#244256;
+    margin-bottom:19px;
+}
+
+.options{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+}
+
+.option{
+    width:100%;
+    min-height:54px;
+    padding:13px 14px;
+    background:#f8fcff;
+    border:1px solid #dcecf5;
+    border-radius:15px;
+    color:#365366;
+    text-align:left;
+    font-size:14px;
+    cursor:pointer;
+    transition:.16s ease;
+}
+
+.option:hover{
+    border-color:#a9d5ef;
+    background:#f1f9fe;
+}
+
+.option:active{
+    transform:scale(.99);
+}
+
+.option.selected{
+    border-color:#2389d7;
+    background:#e8f5fd;
+    color:#116aa9;
+    font-weight:700;
+}
+
+/* =========================
+   RESULT
+========================= */
+
+.result-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:23px;
+    padding:23px 19px;
+    box-shadow:var(--shadow);
+}
+
+.result-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    font-weight:750;
+    color:#2389d7;
+    margin-bottom:8px;
+}
+
+.result-title{
+    font-size:22px;
+    line-height:1.25;
+    font-weight:800;
+    color:#21445a;
+    margin-bottom:10px;
+}
+
+.result-text{
+    color:#718592;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.result-method{
+    margin-top:17px;
+    padding:15px;
+    border-radius:16px;
+    background:#edf8ff;
+    color:#126ba5;
+    font-size:14px;
+    line-height:1.45;
+    font-weight:700;
+}
+
+.primary-button{
+    width:100%;
+    min-height:53px;
+    margin-top:13px;
+    border-radius:16px;
+    background:#1685ce;
+    color:white;
+    font-size:14px;
+    font-weight:750;
+    cursor:pointer;
+    box-shadow:0 9px 22px rgba(22,133,206,.18);
+}
+
+.secondary-button{
+    width:100%;
+    min-height:53px;
+    margin-top:10px;
+    border-radius:16px;
+    background:#f0f8fd;
+    color:#28749d;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* =========================
+   SIMPLE CONTENT
+========================= */
+
+.info-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:21px;
+    padding:19px;
+    margin-bottom:11px;
+    box-shadow:0 7px 22px rgba(34,110,155,.055);
+}
+
+.info-card h3{
+    margin:0 0 8px;
+    font-size:15px;
+    color:#26485d;
+}
+
+.info-card p{
+    margin:0;
+    color:#778b98;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.info-card ul{
+    margin:9px 0 0;
+    padding-left:18px;
+    color:#778b98;
+    font-size:13px;
+    line-height:1.7;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:360px){
+
+    .app{
+        padding:18px 13px 25px;
     }
 
-    .hero {
-        padding: 35px 30px;
+    .hero{
+        padding:25px 19px 21px;
+        border-radius:24px;
     }
 
-    .card {
-        min-height: 98px;
+    .hero h1{
+        font-size:30px;
+    }
+
+    .tool-card{
+        min-height:82px;
+        padding:14px;
+    }
+
+    .tool-icon{
+        width:46px;
+        height:46px;
+        border-radius:14px;
+        margin-right:12px;
+    }
+
+    .tool-title{
+        font-size:14px;
+    }
+
+    .tool-description{
+        font-size:11px;
+    }
+}
+
+@media(min-width:700px){
+
+    body{
+        padding:25px 0;
+    }
+
+    .app{
+        min-height:auto;
     }
 
 }
 
+/* =========================
+   ACCESSIBILITY
+========================= */
+
+button:focus-visible,
+a:focus-visible{
+    outline:3px solid rgba(35,137,215,.25);
+    outline-offset:2px;
+}
 </style>
 </head>
-
 
 <body>
 
 <div class="app">
 
-
 <!-- =========================
      HOME
 ========================= -->
 
-<div id="home" class="screen active">
-
+<section id="home" class="screen active">
 
     <div class="brand">
 
-        <div class="logo-wrap">
-
-            <div class="logo-mark">
-
-                <svg viewBox="0 0 32 32"
-                     fill="none"
-                     xmlns="http://www.w3.org/2000/svg">
-
-                    <path
-                        d="M4 23
-                           C8 23 8 17 12 17
-                           C16 17 16 20 19 20
-                           C22 20 23 12 28 8"
-                        stroke="#668789"
-                        stroke-width="2.3"
-                        stroke-linecap="round"/>
-
-                    <circle cx="8" cy="23" r="2.1" fill="#668789"/>
-                    <circle cx="19" cy="20" r="2.1" fill="#88A2A0"/>
-                    <circle cx="28" cy="8" r="2.1" fill="#668789"/>
-
-                </svg>
-
-            </div>
-
-            <div class="logo">
-                stat<span>vers</span>
-            </div>
-
+        <div class="brand-mark">
+            <svg viewBox="0 0 32 32" fill="none">
+                <path d="M7 22L12 17L16 20L24.5 10.5"
+                      stroke="white"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"/>
+                <path d="M21 10.5H24.5V14"
+                      stroke="white"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"/>
+            </svg>
         </div>
 
-        <div class="brand-label">
-            DATA · MEDICINE
+        <div>
+            <div class="brand-name">STATVERS</div>
+            <div class="brand-sub">DATA · MEDICINE</div>
         </div>
 
     </div>
@@ -689,42 +748,38 @@ a {
 
     <div class="hero">
 
-        <div class="hero-label">
-            <span class="hero-dot"></span>
-            Медицинская статистика
-        </div>
+        <div class="hero-label">Медицинская статистика</div>
 
-        <h1 class="hero-title">
+        <h1>
             Данные,<br>
-            которые <span>говорят.</span>
+            <span>которые говорят.</span>
         </h1>
 
-        <p class="hero-text">
+        <p>
             Медицинская статистика и инструменты
             для анализа научных исследований.
         </p>
 
+        <div class="data-graph">
 
-        <div class="data-graphic">
+            <svg viewBox="0 0 400 65" preserveAspectRatio="none">
 
-            <svg viewBox="0 0 180 110"
-                 fill="none"
-                 xmlns="http://www.w3.org/2000/svg">
+                <path class="graph-soft"
+                      d="M0 48 H400"/>
 
-                <path
-                    d="M5 88
-                       C28 88 29 65 52 65
-                       C74 65 76 77 95 77
-                       C116 77 118 43 137 43
-                       C153 43 160 29 176 10"
-                    stroke="#668789"
-                    stroke-width="2.5"
-                    stroke-linecap="round"/>
+                <path class="graph-soft"
+                      d="M0 27 H400"/>
 
-                <circle cx="52" cy="65" r="4" fill="#668789"/>
-                <circle cx="95" cy="77" r="4" fill="#7F9C9C"/>
-                <circle cx="137" cy="43" r="4" fill="#668789"/>
-                <circle cx="176" cy="10" r="4" fill="#668789"/>
+                <path class="graph-line"
+                      d="M0 48
+                         C35 48 38 41 62 43
+                         S93 52 113 37
+                         S145 17 164 28
+                         S193 43 214 30
+                         S247 10 267 22
+                         S299 43 319 29
+                         S350 17 370 22
+                         S390 17 400 12"/>
 
             </svg>
 
@@ -733,137 +788,989 @@ a {
     </div>
 
 
-    <div class="section-label">
-        Инструменты StatVers
+    <div class="section-title">
+        Инструменты STATVERS
     </div>
 
 
-    <!-- STATISTICS -->
+    <div class="tools">
 
-    <div class="card"
-         onclick="startMethodFinder()">
+        <!-- STATISTICS -->
 
-        <div class="card-icon">
+        <button class="tool-card" onclick="startMethodFinder()">
 
-            <svg viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="1.8">
+            <div class="tool-icon">
 
-                <path d="M4 19V11"/>
-                <path d="M10 19V6"/>
-                <path d="M16 19V9"/>
-                <path d="M22 19V3"/>
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M4 19V5"
+                          stroke-width="1.8"
+                          stroke-linecap="round"/>
 
-            </svg>
+                    <path d="M4 19H21"
+                          stroke-width="1.8"
+                          stroke-linecap="round"/>
+
+                    <path d="M7 15L10 11L13 13L19 6"
+                          stroke-width="1.8"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"/>
+
+                    <circle cx="19" cy="6" r="1.4"
+                            fill="#1682cc"
+                            stroke="none"/>
+                </svg>
+
+            </div>
+
+            <div class="tool-content">
+
+                <div class="tool-title">
+                    Подобрать статистический метод
+                </div>
+
+                <div class="tool-description">
+                    Ответьте на несколько вопросов — STATVERS предложит подходящий метод.
+                </div>
+
+            </div>
+
+            <div class="tool-arrow">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 5L16 12L9 19"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+            </div>
+
+        </button>
+
+
+        <!-- CALCULATORS -->
+
+        <button class="tool-card" onclick="showCalculators()">
+
+            <div class="tool-icon">
+
+                <svg viewBox="0 0 24 24" fill="none">
+
+                    <rect x="5" y="3.5"
+                          width="14"
+                          height="17"
+                          rx="2"
+                          stroke-width="1.8"/>
+
+                    <path d="M8 7H16"
+                          stroke-width="1.8"
+                          stroke-linecap="round"/>
+
+                    <circle cx="9" cy="11" r="1"
+                            fill="#1682cc"
+                            stroke="none"/>
+
+                    <circle cx="12" cy="11" r="1"
+                            fill="#1682cc"
+                            stroke="none"/>
+
+                    <circle cx="15" cy="11" r="1"
+                            fill="#1682cc"
+                            stroke="none"/>
+
+                    <circle cx="9" cy="15" r="1"
+                            fill="#1682cc"
+                            stroke="none"/>
+
+                    <circle cx="12" cy="15" r="1"
+                            fill="#1682cc"
+                            stroke="none"/>
+
+                    <circle cx="15" cy="15" r="1"
+                            fill="#1682cc"
+                            stroke="none"/>
+
+                </svg>
+
+            </div>
+
+            <div class="tool-content">
+
+                <div class="tool-title">
+                    Калькуляторы
+                </div>
+
+                <div class="tool-description">
+                    Медицинские и статистические инструменты для расчётов.
+                </div>
+
+            </div>
+
+            <div class="tool-arrow">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 5L16 12L9 19"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+            </div>
+
+        </button>
+
+
+        <!-- REFERENCE -->
+
+        <button class="tool-card" onclick="showReference()">
+
+            <div class="tool-icon">
+
+                <svg viewBox="0 0 24 24" fill="none">
+
+                    <path d="M5 4.5C5 3.67 5.67 3 6.5 3H19V20H6.5C5.67 20 5 19.33 5 18.5V4.5Z"
+                          stroke-width="1.8"
+                          stroke-linejoin="round"/>
+
+                    <path d="M5 17H19"
+                          stroke-width="1.8"/>
+
+                    <path d="M9 7H15"
+                          stroke-width="1.6"
+                          stroke-linecap="round"/>
+
+                    <path d="M9 10H16"
+                          stroke-width="1.6"
+                          stroke-linecap="round"/>
+
+                    <path d="M9 13H14"
+                          stroke-width="1.6"
+                          stroke-linecap="round"/>
+
+                </svg>
+
+            </div>
+
+            <div class="tool-content">
+
+                <div class="tool-title">
+                    Статистический справочник
+                </div>
+
+                <div class="tool-description">
+                    Методы, показатели и основные статистические понятия.
+                </div>
+
+            </div>
+
+            <div class="tool-arrow">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 5L16 12L9 19"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+            </div>
+
+        </button>
+
+    </div>
+
+
+    <!-- ORDER -->
+
+    <div class="order-card" onclick="goOrder()">
+
+        <div class="order-top">
+
+            <div class="order-icon">
+
+                <svg viewBox="0 0 24 24" fill="none">
+
+                    <path d="M5 5.5C5 4.67 5.67 4 6.5 4H18C18.55 4 19 4.45 19 5V19L15.5 17L12 19L8.5 17L5 19V5.5Z"
+                          stroke-width="1.8"
+                          stroke-linejoin="round"/>
+
+                    <path d="M8.5 8H15.5"
+                          stroke-width="1.6"
+                          stroke-linecap="round"/>
+
+                    <path d="M8.5 11H14"
+                          stroke-width="1.6"
+                          stroke-linecap="round"/>
+
+                </svg>
+
+            </div>
+
+            <div class="order-title">
+                Заказать анализ
+            </div>
+
+            <div class="order-arrow">
+                →
+            </div>
 
         </div>
 
-        <div class="card-content">
-
-            <div class="card-title">
-                Подобрать статистический метод
-            </div>
-
-            <div class="card-text">
-                Ответьте на несколько вопросов —
-                StatVers предложит подходящий метод.
-            </div>
-
-        </div>
-
-        <div class="card-arrow">
-            ›
+        <div class="order-description">
+            Статистический анализ медицинских и научных данных.
+            Оставьте заявку на сайте STATVERS.
         </div>
 
     </div>
 
 
-    <!-- CALCULATORS -->
+    <footer class="footer">
 
-    <div class="card"
-         onclick="showMessage('calculator')">
+        <div class="footer-logo">
+            STATVERS
+        </div>
 
-        <div class="card-icon">
+        <div class="footer-text">
+            Медицинская статистика и инструменты для исследований
+        </div>
 
-            <svg viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="1.8">
+        <a
+            class="footer-link"
+            href="https://statvers.ru"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            statvers.ru
+        </a>
 
-                <rect x="5" y="2.5"
-                      width="14"
-                      height="19"
-                      rx="2"/>
+    </footer>
 
-                <path d="M8 6h8"/>
+</section>
 
-                <circle cx="9" cy="11" r="1"/>
-                <circle cx="15" cy="11" r="1"/>
-                <circle cx="9" cy="16" r="1"/>
-                <circle cx="15" cy="16" r="1"/>
 
+<!-- =========================
+     METHOD FINDER
+========================= -->
+
+<section id="method" class="screen">
+
+    <div class="inner-header">
+
+        <button class="back-button" onclick="goHome()">
+
+            <svg viewBox="0 0 24 24" fill="none">
+                <path d="M15 5L8 12L15 19"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"/>
             </svg>
 
+        </button>
+
+        <div class="inner-title">
+            Подбор метода
         </div>
 
-        <div class="card-content">
+    </div>
 
-            <div class="card-title">
-                Калькуляторы
-            </div>
+    <div class="progress" id="progress">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 
-            <div class="card-text">
-                Медицинские и статистические
-                инструменты для расчётов.
-            </div>
+    <div id="questionArea"></div>
 
+</section>
+
+
+<!-- =========================
+     RESULT
+========================= -->
+
+<section id="result" class="screen">
+
+    <div class="inner-header">
+
+        <button class="back-button" onclick="goHome()">
+
+            <svg viewBox="0 0 24 24" fill="none">
+                <path d="M15 5L8 12L15 19"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"/>
+            </svg>
+
+        </button>
+
+        <div class="inner-title">
+            Результат
         </div>
 
-        <div class="card-arrow">
-            ›
+    </div>
+
+    <div id="resultArea"></div>
+
+</section>
+
+
+<!-- =========================
+     CALCULATORS
+========================= -->
+
+<section id="calculators" class="screen">
+
+    <div class="inner-header">
+
+        <button class="back-button" onclick="goHome()">
+
+            <svg viewBox="0 0 24 24" fill="none">
+                <path d="M15 5L8 12L15 19"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"/>
+            </svg>
+
+        </button>
+
+        <div class="inner-title">
+            Калькуляторы
+        </div>
+
+    </div>
+
+    <p class="inner-subtitle">
+        Медицинские калькуляторы STATVERS для предварительной оценки показателей и расчётов.
+    </p>
+
+
+    <div class="info-card" onclick="openProlapseCalculator()" style="cursor:pointer;">
+
+        <h3>
+            Калькулятор риска апикального пролапса
+        </h3>
+
+        <p>
+            Расчёт индивидуального риска на основе клинических параметров.
+        </p>
+
+        <button class="primary-button" onclick="event.stopPropagation(); openProlapseCalculator()">
+            Открыть калькулятор
+        </button>
+
+    </div>
+
+
+    <div class="info-card">
+
+        <h3>
+            Новые калькуляторы
+        </h3>
+
+        <p>
+            Раздел будет постепенно пополняться медицинскими и статистическими инструментами STATVERS.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     REFERENCE
+========================= -->
+
+<section id="reference" class="screen">
+
+    <div class="inner-header">
+
+        <button class="back-button" onclick="goHome()">
+
+            <svg viewBox="0 0 24 24" fill="none">
+                <path d="M15 5L8 12L15 19"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"/>
+            </svg>
+
+        </button>
+
+        <div class="inner-title">
+            Справочник
         </div>
 
     </div>
 
 
-    <!-- REFERENCE -->
+    <p class="inner-subtitle">
+        Краткие объяснения основных статистических методов и понятий.
+    </p>
 
-    <div class="card"
-         onclick="showMessage('reference')">
 
-        <div class="card-icon">
+    <div class="info-card">
 
-            <svg viewBox="0 0 24 24"
-                 fill="none"
-                 stroke="currentColor"
-                 stroke-width="1.8">
+        <h3>
+            Среднее значение
+        </h3>
 
-                <path d="M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4z"/>
-                <path d="M7 20V4"/>
-                <path d="M10 8h6"/>
-                <path d="M10 12h6"/>
-                <path d="M10 16h4"/>
+        <p>
+            Сумма всех наблюдений, разделённая на их количество.
+            Используется для количественных данных при отсутствии выраженных выбросов.
+        </p>
 
+    </div>
+
+
+    <div class="info-card">
+
+        <h3>
+            Медиана
+        </h3>
+
+        <p>
+            Центральное значение упорядоченного ряда.
+            Менее чувствительна к выбросам, чем среднее.
+        </p>
+
+    </div>
+
+
+    <div class="info-card">
+
+        <h3>
+            Стандартное отклонение
+        </h3>
+
+        <p>
+            Показывает степень разброса количественных значений относительно среднего.
+        </p>
+
+    </div>
+
+
+    <div class="info-card">
+
+        <h3>
+            p-значение
+        </h3>
+
+        <p>
+            Используется для оценки статистической значимости наблюдаемого результата
+            при заданной статистической модели.
+        </p>
+
+    </div>
+
+
+    <div class="info-card">
+
+        <h3>
+            Доверительный интервал
+        </h3>
+
+        <p>
+            Интервал неопределённости оценки, рассчитанный выбранным статистическим методом.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ORDER
+========================= -->
+
+<section id="order" class="screen">
+
+    <div class="inner-header">
+
+        <button class="back-button" onclick="goHome()">
+
+            <svg viewBox="0 0 24 24" fill="none">
+                <path d="M15 5L8 12L15 19"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"/>
             </svg>
 
+        </button>
+
+        <div class="inner-title">
+            Заказать анализ
         </div>
 
-        <div class="card-content">
+    </div>
 
-            <div class="card-title">
-                Статистический справочник
-            </div>
 
-            <div class="card-text">
-                Методы, показатели и основные
-                статистические понятия.
-            </div>
+    <div class="result-card">
 
+        <div class="result-label">
+            STATVERS
         </div>
 
-        <div class="card-arrow">
-            ›
+        <div class="result-title">
+            Нужен статистический анализ?
         </div>
 
-   
+        <div class="result-text">
+            Опишите задачу, приложите имеющиеся данные или техническое задание —
+            мы оценим задачу и предложим подходящий вариант анализа.
+        </div>
+
+        <button class="primary-button" onclick="openWebsite()">
+            Перейти на statvers.ru
+        </button>
+
+        <button class="secondary-button" onclick="goHome()">
+            Вернуться на главную
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MESSAGE
+========================= -->
+
+<section id="message" class="screen">
+
+    <div class="inner-header">
+
+        <button class="back-button" onclick="goHome()">
+
+            <svg viewBox="0 0 24 24" fill="none">
+                <path d="M15 5L8 12L15 19"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"/>
+            </svg>
+
+        </button>
+
+        <div class="inner-title">
+            STATVERS
+        </div>
+
+    </div>
+
+    <div id="messageArea"></div>
+
+</section>
+
+</div>
+
+
+<script>
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function hideAll(){
+
+    document.querySelectorAll(".screen").forEach(function(screen){
+        screen.classList.remove("active");
+    });
+
+}
+
+
+function showScreen(id){
+
+    hideAll();
+
+    const screen = document.getElementById(id);
+
+    if(screen){
+        screen.classList.add("active");
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+function goHome(){
+
+    showScreen("home");
+
+}
+
+
+function goOrder(){
+
+    showScreen("order");
+
+}
+
+
+function openWebsite(){
+
+    window.open(
+        "https://statvers.ru",
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+/* =========================
+   CALCULATORS
+========================= */
+
+function showCalculators(){
+
+    showScreen("calculators");
+
+}
+
+
+function openProlapseCalculator(){
+
+    window.open(
+        "https://apical-prolapse-risk-calculator.vercel.app/",
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+/* =========================
+   REFERENCE
+========================= */
+
+function showReference(){
+
+    showScreen("reference");
+
+}
+
+
+/* =========================
+   METHOD FINDER
+========================= */
+
+let currentStep = 0;
+
+let answers = {};
+
+
+const questions = [
+
+    {
+        title:"Что вы хотите исследовать?",
+        options:[
+            ["compare","Сравнить группы"],
+            ["correlation","Изучить связь между показателями"],
+            ["risk","Оценить риск или вероятность события"],
+            ["survival","Изучить время до наступления события"]
+        ]
+    },
+
+    {
+        title:"Какие у вас данные?",
+        options:[
+            ["numeric","Количественные"],
+            ["categorical","Категориальные"],
+            ["time","Время до события"]
+        ]
+    },
+
+    {
+        title:"Сколько групп вы сравниваете?",
+        options:[
+            ["two","2 группы"],
+            ["three","3 и более групп"],
+            ["none","Группы не сравниваются"]
+        ]
+    },
+
+    {
+        title:"Связаны ли наблюдения между собой?",
+        options:[
+            ["independent","Независимые"],
+            ["dependent","Зависимые / парные"],
+            ["na","Не применимо"]
+        ]
+    }
+
+];
+
+
+function startMethodFinder(){
+
+    answers = {};
+
+    currentStep = 0;
+
+    showScreen("method");
+
+    showStep();
+
+}
+
+
+function updateProgress(){
+
+    const bars = document.querySelectorAll("#progress span");
+
+    bars.forEach(function(bar,index){
+
+        if(index <= currentStep){
+            bar.classList.add("active");
+        }else{
+            bar.classList.remove("active");
+        }
+
+    });
+
+}
+
+
+function showStep(){
+
+    const q = questions[currentStep];
+
+    updateProgress();
+
+    let html = "";
+
+    html += '<div class="question-card">';
+
+    html += '<div class="question-number">Шаг ' + (currentStep + 1) + ' из ' + questions.length + '</div>';
+
+    html += '<div class="question-title">' + q.title + '</div>';
+
+    html += '<div class="options">';
+
+    q.options.forEach(function(option){
+
+        html +=
+            '<button class="option" onclick="selectOption(\'' +
+            option[0] +
+            '\')">' +
+            option[1] +
+            '</button>';
+
+    });
+
+    html += '</div>';
+
+    html += '</div>';
+
+    document.getElementById("questionArea").innerHTML = html;
+
+}
+
+
+function selectOption(value){
+
+    answers[currentStep] = value;
+
+    if(currentStep < questions.length - 1){
+
+        currentStep++;
+
+        showStep();
+
+    }else{
+
+        showResult();
+
+    }
+
+}
+
+
+/* =========================
+   METHOD RESULT
+========================= */
+
+function showResult(){
+
+    showScreen("result");
+
+    let method = "";
+    let explanation = "";
+
+    const purpose = answers[0];
+    const data = answers[1];
+    const groups = answers[2];
+    const dependence = answers[3];
+
+
+    if(purpose === "correlation"){
+
+        method = "Корреляционный анализ";
+
+        explanation =
+            "Подходит для оценки силы и направления связи между количественными или порядковыми показателями.";
+
+    }
+
+    else if(purpose === "survival"){
+
+        method = "Анализ выживаемости";
+
+        explanation =
+            "Используется для анализа времени до наступления события и сравнения кривых выживаемости.";
+
+    }
+
+    else if(purpose === "risk"){
+
+        method = "Анализ риска";
+
+        explanation =
+            "Для оценки вероятности события могут использоваться относительный риск, отношение шансов и регрессионные модели.";
+
+    }
+
+    else if(
+        purpose === "compare" &&
+        groups === "two" &&
+        dependence === "dependent"
+    ){
+
+        method = "Парный t-критерий или критерий Уилкоксона";
+
+        explanation =
+            "Выбор зависит от распределения количественного показателя и выполнения условий параметрического анализа.";
+
+    }
+
+    else if(
+        purpose === "compare" &&
+        groups === "two"
+    ){
+
+        method = "t-критерий Стьюдента или Манна–Уитни";
+
+        explanation =
+            "Выбор зависит от типа данных, распределения и выполнения предпосылок параметрического анализа.";
+
+    }
+
+    else if(
+        purpose === "compare" &&
+        groups === "three"
+    ){
+
+        method = "ANOVA или критерий Краскела–Уоллиса";
+
+        explanation =
+            "Используется для сравнения трёх и более независимых групп.";
+
+    }
+
+    else if(
+        purpose === "compare" &&
+        data === "categorical"
+    ){
+
+        method = "χ² или точный критерий Фишера";
+
+        explanation =
+            "Используется для анализа связи между категориальными переменными.";
+
+    }
+
+    else{
+
+        method = "Требуется дополнительная оценка";
+
+        explanation =
+            "Для выбора метода необходимо учитывать дизайн исследования, тип переменных, распределение данных и дополнительные условия анализа.";
+
+    }
+
+
+    let html = "";
+
+    html += '<div class="result-card">';
+
+    html += '<div class="result-label">Рекомендуемый подход</div>';
+
+    html += '<div class="result-title">' + method + '</div>';
+
+    html += '<div class="result-text">' + explanation + '</div>';
+
+    html += '<div class="result-method">' +
+            'Важно: окончательный выбор статистического метода зависит от дизайна исследования и характеристик данных.' +
+            '</div>';
+
+    html += '<button class="primary-button" onclick="goOrder()">';
+
+    html += 'Заказать анализ';
+
+    html += '</button>';
+
+    html += '<button class="secondary-button" onclick="startMethodFinder()">';
+
+    html += 'Пройти заново';
+
+    html += '</button>';
+
+    html += '</div>';
+
+    document.getElementById("resultArea").innerHTML = html;
+
+}
+
+
+/* =========================
+   OPTIONAL MESSAGE
+========================= */
+
+function showMessage(title,text){
+
+    showScreen("message");
+
+    document.getElementById("messageArea").innerHTML =
+
+        '<div class="result-card">' +
+
+        '<div class="result-label">STATVERS</div>' +
+
+        '<div class="result-title">' +
+        title +
+        '</div>' +
+
+        '<div class="result-text">' +
+        text +
+        '</div>' +
+
+        '<button class="primary-button" onclick="goHome()">' +
+        'На главную' +
+        '</button>' +
+
+        '</div>';
+
+}
+
+
+/* =========================
+   HASH SUPPORT
+========================= */
+
+function openHash(){
+
+    const hash = window.location.hash.replace("#","");
+
+    if(hash === "order"){
+        goOrder();
+    }
+
+}
+
+
+window.addEventListener("load",openHash);
+
+window.addEventListener("hashchange",openHash);
+
+</script>
+
+</body>
+</html>
