@@ -4,10 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>StatVers — медицинская статистика</title>
+<title>statvers — медицинская статистика</title>
 
 <style>
-
 * {
     box-sizing: border-box;
 }
@@ -23,7 +22,7 @@ body {
     max-width: 480px;
     min-height: 100vh;
     margin: 0 auto;
-    padding: 28px 20px 40px;
+    padding: 28px 20px 30px;
 }
 
 .logo {
@@ -41,7 +40,7 @@ body {
 }
 
 .card {
-    background: #ffffff;
+    background: #fff;
     border: 1px solid #e5e3de;
     border-radius: 18px;
     padding: 20px;
@@ -50,7 +49,8 @@ body {
     transition: 0.2s;
 }
 
-.card:active {
+.card:active,
+.option:active {
     transform: scale(0.98);
 }
 
@@ -89,7 +89,7 @@ body {
 .order-text {
     font-size: 14px;
     line-height: 1.5;
-    color: #dddddd;
+    color: #ddd;
     margin-bottom: 18px;
 }
 
@@ -120,6 +120,12 @@ body {
     cursor: pointer;
 }
 
+.progress {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 12px;
+}
+
 .question {
     font-size: 24px;
     line-height: 1.3;
@@ -135,16 +141,6 @@ body {
     margin-bottom: 12px;
     font-size: 16px;
     cursor: pointer;
-}
-
-.option:active {
-    transform: scale(0.98);
-}
-
-.progress {
-    font-size: 13px;
-    color: #888;
-    margin-bottom: 12px;
 }
 
 .result {
@@ -163,6 +159,7 @@ body {
 .result-title {
     font-size: 24px;
     font-weight: 700;
+    line-height: 1.25;
     margin-bottom: 12px;
 }
 
@@ -194,6 +191,26 @@ body {
     cursor: pointer;
 }
 
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e3de;
+}
+
+.footer a {
+    color: #343434;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.footer-text {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #999;
+}
+
 </style>
 </head>
 
@@ -201,174 +218,188 @@ body {
 
 <div class="app">
 
-    <!-- ГЛАВНЫЙ ЭКРАН -->
+<!-- ГЛАВНЫЙ ЭКРАН -->
 
-    <div id="home" class="screen active">
+<div id="home" class="screen active">
 
-        <div class="logo">STATVERS</div>
+    <div class="logo">statvers</div>
 
-        <div class="subtitle">
-            Медицинская статистика<br>
-            и инструменты для исследований
+    <div class="subtitle">
+        Медицинская статистика<br>
+        и инструменты для исследований
+    </div>
+
+    <div class="card" onclick="startMethodFinder()">
+
+        <div class="icon">📊</div>
+
+        <div class="card-title">
+            Подобрать статистический метод
         </div>
 
-        <div class="card" onclick="startMethodFinder()">
-
-            <div class="icon">📊</div>
-
-            <div class="card-title">
-                Подобрать статистический метод
-            </div>
-
-            <div class="card-text">
-                Ответьте на несколько вопросов — StatVers поможет определить подходящий статистический метод.
-            </div>
-
-        </div>
-
-
-        <div class="card" onclick="showMessage('calculator')">
-
-            <div class="icon">🧮</div>
-
-            <div class="card-title">
-                Калькуляторы
-            </div>
-
-            <div class="card-text">
-                Медицинские и статистические калькуляторы StatVers.
-            </div>
-
-        </div>
-
-
-        <div class="card" onclick="showMessage('reference')">
-
-            <div class="icon">📚</div>
-
-            <div class="card-title">
-                Статистический справочник
-            </div>
-
-            <div class="card-text">
-                Простое объяснение статистических методов и показателей.
-            </div>
-
-        </div>
-
-
-        <div class="card" onclick="showMessage('order')">
-
-            <div class="icon">📤</div>
-
-            <div class="card-title">
-                Заказать анализ
-            </div>
-
-            <div class="card-text">
-                Передайте данные специалистам StatVers для профессионального анализа.
-            </div>
-
-        </div>
-
-
-        <div class="order">
-
-            <div class="order-title">
-                Нужна помощь с исследованием?
-            </div>
-
-            <div class="order-text">
-                Расскажите о задаче — мы поможем определить необходимый анализ.
-            </div>
-
-            <div class="button" onclick="showMessage('order')">
-                Заказать статистический анализ
-            </div>
-
+        <div class="card-text">
+            Ответьте на несколько вопросов — statvers поможет определить подходящий статистический метод.
         </div>
 
     </div>
 
 
-    <!-- ПОДБОР МЕТОДА -->
+    <div class="card" onclick="showMessage('calculator')">
 
-    <div id="methodFinder" class="screen">
+        <div class="icon">🧮</div>
 
-        <div class="back" onclick="goHome()">
-            ← Назад
+        <div class="card-title">
+            Калькуляторы
         </div>
 
-        <div class="progress" id="progress">
-            Шаг 1 из 3
-        </div>
-
-        <div class="question" id="question">
-            Что вы хотите сделать?
-        </div>
-
-        <div id="options"></div>
-
-    </div>
-
-
-    <!-- РЕЗУЛЬТАТ -->
-
-    <div id="resultScreen" class="screen">
-
-        <div class="back" onclick="startMethodFinder()">
-            ← Пройти заново
-        </div>
-
-        <div class="result">
-
-            <div class="result-label">
-                Предварительная рекомендация
-            </div>
-
-            <div class="result-title" id="resultTitle">
-                —
-            </div>
-
-            <div class="result-text" id="resultText">
-                —
-            </div>
-
-            <div class="result-note">
-                ⚠️ Выбор статистического метода зависит от структуры данных, типа переменных, распределения и дизайна исследования.
-                Эта рекомендация носит предварительный характер.
-            </div>
-
-            <button class="small-button" onclick="showMessage('order')">
-                Обсудить исследование
-            </button>
-
+        <div class="card-text">
+            Медицинские и статистические калькуляторы.
         </div>
 
     </div>
 
 
-    <!-- СООБЩЕНИЕ -->
+    <div class="card" onclick="showMessage('reference')">
 
-    <div id="messageScreen" class="screen">
+        <div class="icon">📚</div>
 
-        <div class="back" onclick="goHome()">
-            ← Назад
+        <div class="card-title">
+            Статистический справочник
         </div>
 
-        <div class="result">
-
-            <div class="result-title" id="messageTitle">
-                Скоро здесь появится новый раздел
-            </div>
-
-            <div class="result-text" id="messageText">
-                Мы постепенно развиваем приложение StatVers.
-            </div>
-
+        <div class="card-text">
+            Простое объяснение статистических методов и показателей.
         </div>
 
     </div>
+
+
+    <div class="card" onclick="showMessage('order')">
+
+        <div class="icon">📤</div>
+
+        <div class="card-title">
+            Заказать анализ
+        </div>
+
+        <div class="card-text">
+            Передайте данные специалистам statvers для профессионального анализа.
+        </div>
+
+    </div>
+
+
+    <div class="order">
+
+        <div class="order-title">
+            Нужна помощь с исследованием?
+        </div>
+
+        <div class="order-text">
+            Расскажите о задаче — мы поможем определить необходимый анализ.
+        </div>
+
+        <div class="button" onclick="showMessage('order')">
+            Заказать статистический анализ
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+
+        <a href="https://statvers.ru" target="_blank">
+            statvers.ru
+        </a>
+
+        <div class="footer-text">
+            Медицинская статистика и анализ данных
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ПОДБОР МЕТОДА -->
+
+<div id="methodFinder" class="screen">
+
+    <div class="back" onclick="goHome()">
+        ← Назад
+    </div>
+
+    <div class="progress" id="progress">
+        Шаг 1 из 4
+    </div>
+
+    <div class="question" id="question">
+        Что вы хотите сделать?
+    </div>
+
+    <div id="options"></div>
+
+</div>
+
+
+<!-- РЕЗУЛЬТАТ -->
+
+<div id="resultScreen" class="screen">
+
+    <div class="back" onclick="startMethodFinder()">
+        ← Пройти заново
+    </div>
+
+    <div class="result">
+
+        <div class="result-label">
+            Предварительная рекомендация
+        </div>
+
+        <div class="result-title" id="resultTitle">
+            —
+        </div>
+
+        <div class="result-text" id="resultText">
+            —
+        </div>
+
+        <div class="result-note">
+            ⚠️ Окончательный выбор метода зависит от структуры данных,
+            типа переменных, распределения и дизайна исследования.
+            Рекомендация носит предварительный характер.
+        </div>
+
+        <button class="small-button" onclick="showMessage('order')">
+            Обсудить исследование
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ДОПОЛНИТЕЛЬНЫЕ РАЗДЕЛЫ -->
+
+<div id="messageScreen" class="screen">
+
+    <div class="back" onclick="goHome()">
+        ← Назад
+    </div>
+
+    <div class="result">
+
+        <div class="result-title" id="messageTitle">
+            —
+        </div>
+
+        <div class="result-text" id="messageText">
+            —
+        </div>
+
+    </div>
+
+</div>
 
 </div>
 
@@ -380,7 +411,8 @@ let currentStep = 1;
 let answers = {
     purpose: "",
     data: "",
-    groups: ""
+    groups: "",
+    dependence: ""
 };
 
 
@@ -409,7 +441,8 @@ function startMethodFinder() {
     answers = {
         purpose: "",
         data: "",
-        groups: ""
+        groups: "",
+        dependence: ""
     };
 
     hideAll();
@@ -429,9 +462,10 @@ function showStep() {
 
     options.innerHTML = "";
 
+
     if (currentStep === 1) {
 
-        progress.innerText = "Шаг 1 из 3";
+        progress.innerText = "Шаг 1 из 4";
 
         question.innerText = "Что вы хотите сделать?";
 
@@ -448,7 +482,7 @@ function showStep() {
 
     if (currentStep === 2) {
 
-        progress.innerText = "Шаг 2 из 3";
+        progress.innerText = "Шаг 2 из 4";
 
         question.innerText = "Какой тип данных у основного показателя?";
 
@@ -463,7 +497,7 @@ function showStep() {
 
     if (currentStep === 3) {
 
-        progress.innerText = "Шаг 3 из 3";
+        progress.innerText = "Шаг 3 из 4";
 
         question.innerText = "Сколько групп вы сравниваете?";
 
@@ -471,7 +505,22 @@ function showStep() {
 
         addOption("3 и более групп", "three");
 
-        addOption("Групп нет — изучаю связь показателей", "none");
+        addOption("Групп нет", "none");
+
+    }
+
+
+    if (currentStep === 4) {
+
+        progress.innerText = "Шаг 4 из 4";
+
+        question.innerText = "Группы независимые или зависимые?";
+
+        addOption("Независимые группы", "independent");
+
+        addOption("Зависимые группы", "dependent");
+
+        addOption("Не применимо", "notapplicable");
 
     }
 
@@ -511,7 +560,12 @@ function selectOption(value) {
         answers.groups = value;
     }
 
-    if (currentStep < 3) {
+    if (currentStep === 4) {
+        answers.dependence = value;
+    }
+
+
+    if (currentStep < 4) {
 
         currentStep++;
 
@@ -535,53 +589,95 @@ function showResult() {
     let title = "";
     let text = "";
 
+
     if (answers.purpose === "correlation") {
 
         title = "Корреляционный анализ";
 
-        text = "Если вы изучаете взаимосвязь между количественными показателями, может подойти корреляционный анализ. В зависимости от распределения и характера данных могут использоваться коэффициенты Пирсона или Спирмена.";
+        text = "Для изучения взаимосвязи между количественными показателями могут применяться коэффициент корреляции Пирсона или коэффициент Спирмена. Выбор зависит от типа данных, распределения и характера связи.";
 
     }
+
 
     else if (answers.purpose === "survival") {
 
         title = "Анализ выживаемости";
 
-        text = "Для анализа времени до наступления события обычно применяются методы анализа выживаемости, например кривая Каплана–Майера и регрессионная модель Кокса.";
+        text = "Для анализа времени до наступления события применяются методы анализа выживаемости. Например, кривые Каплана–Майера, лог-ранговый критерий и регрессия Кокса.";
 
     }
+
 
     else if (answers.purpose === "risk") {
 
         title = "Анализ риска";
 
-        text = "Для оценки вероятности или факторов риска события могут применяться относительный риск, отношение шансов, логистическая регрессия и другие методы.";
+        text = "Для оценки риска или вероятности события могут применяться относительный риск, отношение шансов, критерий χ², точный критерий Фишера или логистическая регрессия.";
 
     }
 
-    else if (answers.purpose === "compare" && answers.groups === "two" && answers.data === "numeric") {
 
-        title = "Сравнение двух групп";
+    else if (
+        answers.purpose === "compare" &&
+        answers.groups === "two" &&
+        answers.data === "numeric" &&
+        answers.dependence === "independent"
+    ) {
 
-        text = "Для двух независимых групп может использоваться t-критерий Стьюдента при выполнении соответствующих предпосылок. Если распределение отличается от нормального, часто применяется критерий Манна–Уитни.";
+        title = "t-критерий Стьюдента или Манна–Уитни";
+
+        text = "Для сравнения двух независимых групп по количественному показателю может применяться t-критерий Стьюдента при выполнении соответствующих предпосылок. При ненормальном распределении или других нарушениях предпосылок может использоваться критерий Манна–Уитни.";
+
+    }
+
+
+    else if (
+        answers.purpose === "compare" &&
+        answers.groups === "two" &&
+        answers.data === "numeric" &&
+        answers.dependence === "dependent"
+    ) {
+
+        title = "Парный t-критерий или критерий Уилкоксона";
+
+        text = "Для сравнения двух зависимых измерений может применяться парный t-критерий Стьюдента. Если предпосылки параметрического анализа не выполняются, может использоваться критерий Уилкоксона.";
 
     }
 
-    else if (answers.purpose === "compare" && answers.groups === "three") {
 
-        title = "Сравнение нескольких групп";
+    else if (
+        answers.purpose === "compare" &&
+        answers.groups === "three" &&
+        answers.data === "numeric"
+    ) {
 
-        text = "Для сравнения трёх и более групп могут использоваться дисперсионный анализ (ANOVA) или непараметрический критерий Краскела–Уоллиса — в зависимости от характеристик данных.";
+        title = "ANOVA или критерий Краскела–Уоллиса";
+
+        text = "Для сравнения трёх и более групп по количественному показателю может применяться однофакторный дисперсионный анализ ANOVA. При нарушении соответствующих предпосылок может использоваться критерий Краскела–Уоллиса.";
 
     }
+
+
+    else if (
+        answers.purpose === "compare" &&
+        answers.data === "categorical"
+    ) {
+
+        title = "χ² или точный критерий Фишера";
+
+        text = "Для сравнения категориальных показателей между группами могут применяться критерий χ² Пирсона или точный критерий Фишера. Выбор зависит, в частности, от размеров ожидаемых частот.";
+
+    }
+
 
     else {
 
-        title = "Статистический анализ";
+        title = "Требуется дополнительная оценка";
 
-        text = "По указанным параметрам может потребоваться дополнительная оценка структуры данных и дизайна исследования. Специалист StatVers поможет выбрать наиболее подходящий метод.";
+        text = "По указанным параметрам нельзя надёжно выбрать один метод. Необходимо дополнительно оценить структуру данных, распределение показателей и дизайн исследования.";
 
     }
+
 
     document.getElementById("resultTitle").innerText = title;
 
@@ -605,7 +701,7 @@ function showMessage(type) {
 
         title.innerText = "🧮 Калькуляторы";
 
-        text.innerText = "Здесь будут размещаться медицинские и статистические калькуляторы StatVers.";
+        text.innerText = "Здесь будут размещаться медицинские и статистические калькуляторы.";
 
     }
 
@@ -623,7 +719,7 @@ function showMessage(type) {
 
         title.innerText = "📤 Заказать анализ";
 
-        text.innerText = "Свяжитесь со StatVers и расскажите о своём исследовании. Мы поможем определить необходимый статистический анализ.";
+        text.innerText = "Свяжитесь со statvers и расскажите о своём исследовании. Мы поможем определить необходимый статистический анализ.";
 
     }
 
